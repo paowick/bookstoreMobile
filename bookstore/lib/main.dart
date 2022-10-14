@@ -1,8 +1,10 @@
-import 'package:bookstore/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bookstore/register.dart';
+import 'package:bookstore/addbook.dart';
+import 'package:bookstore/book.dart';
+import 'package:bookstore/resetpass.dart';
 
 final appName = 'bookstore project';
 void main() async {
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/homepage':(context) => Homepage(),
+        '/addbook': (context) => AddBookPage(),
+        '/book': (context) => BookPage(),
+        '/resetpass': (context) => Resetpass(),
       },
     );
   }

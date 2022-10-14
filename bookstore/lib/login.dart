@@ -35,17 +35,28 @@ class _LoginPageState extends State<LoginPage> {
               passwordTextFormField(),
               loginButton(),
               registerButton(context),
+              forgotpassword(context),
             ],
           ),
         ));
   }
 
-  ElevatedButton registerButton(BuildContext context) {
+  ElevatedButton forgotpassword(BuildContext context) {
     return ElevatedButton(
 // ignore: prefer_const_constructors
 
-      child: Text('Register new account'),
+      child: Text('Reset password'),
 
+      onPressed: () {
+        Navigator.pushNamed(context, '/resetpass');
+      },
+    );
+  }
+
+  ElevatedButton registerButton(BuildContext context) {
+    return ElevatedButton(
+// ignore: prefer_const_constructors
+      child: Text('Register new account'),
       onPressed: () {
         print('Goto Regis pagge');
 
@@ -71,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 if (value.user!.emailVerified) {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Login Pass")));
-                  Navigator.pushReplacementNamed(context, '/homepage');
+                  Navigator.pushReplacementNamed(context, '/book');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("Please verify email")));

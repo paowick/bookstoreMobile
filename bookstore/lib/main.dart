@@ -6,7 +6,7 @@ import 'package:bookstore/addbook.dart';
 import 'package:bookstore/book.dart';
 import 'package:bookstore/resetpass.dart';
 
-final appName = 'bookstore project';
+final appName = 'Michael Hart project';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

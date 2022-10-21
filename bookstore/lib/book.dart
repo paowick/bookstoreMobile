@@ -31,15 +31,7 @@ class BookPage extends StatelessWidget {
   }
 
   IconButton buildAddButton(context) {
-    if (FirebaseAuth.instance.currentUser!.uid ==
-        'asXgURsdElfOT3NUhRlzj1M99VW2') {
-      return IconButton(
-          icon: const Icon(Icons.add),
-          onPressed: () {
-            print("add icon press");
-            Navigator.pushNamed(context, '/addbook');
-          });
-    }
+    
     return IconButton(
       icon: const Icon(Icons.exit_to_app),
       onPressed: () {

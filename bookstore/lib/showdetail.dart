@@ -48,25 +48,6 @@ class _BookDetailState extends State<BookDetail> {
     }
     var model = data.docs.elementAt(indextemp!);
 
-    if (FirebaseAuth.instance.currentUser!.uid ==
-        'asXgURsdElfOT3NUhRlzj1M99VW2') {
-      return Center(
-        child: Column(
-          children: [
-            Text(model['title']),
-            Text(model['detail']),
-            Text('prise : ' + model['price'].toString() + '  Bath'),
-            ElevatedButton(
-                child: Text('Delete book'),
-                onPressed: () {
-                  deleteValue(model.id);
-                  indextemp = null;
-                  Navigator.pop(context);
-                }),
-          ],
-        ),
-      );
-    }
     return Center(
       child: Column(
         children: [

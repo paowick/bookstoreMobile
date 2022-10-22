@@ -6,32 +6,48 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 int? indextemp = 0;
 
 class BookPage extends StatelessWidget {
-  final store = FirebaseFirestore.instance;
-
   BookPage({Key? key}) : super(key: key);
+
+  final store = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: store.collection('books').snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text("Books"),
-            actions: <Widget>[buildAddButton(context)],
-          ),
-          body: snapshot.hasData
-              ? buildBookList(snapshot.data!)
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
-        );
-      },
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Books"),
+          actions: <Widget>[buildAddButton(context)],
+          bottom: const TabBar(tabs: [
+            Tab(
+              icon: Icon(Icons.book),
+            ),
+            Tab(icon: Icon(Icons.store)),
+            Tab(icon: Icon(Icons.settings)),
+          ]),
+        ),
+        body: TabBarView(
+          children: [snapBook(), Text('Store'), Text('Settings')],
+        ),
+      ),
     );
   }
 
+  Widget snapBook() {
+    return StreamBuilder(
+        stream: store.collection('books').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return Container(
+            child: snapshot.hasData
+                ? buildBookList(snapshot.data!)
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+          );
+        });
+  }
+
   IconButton buildAddButton(context) {
-    
     return IconButton(
       icon: const Icon(Icons.exit_to_app),
       onPressed: () {

@@ -48,6 +48,7 @@ class _BookDetailState extends State<BookDetail> {
     }
     var model = data.docs.elementAt(indextemp!);
 
+    
     return Center(
       child: Column(
         children: [

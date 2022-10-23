@@ -103,24 +103,34 @@ class _LoginPageState extends State<LoginPage> {
         });
   }
 
+  bool passhid = false;
+
   TextFormField passwordTextFormField() {
     return TextFormField(
-      onSaved: (value) {
-        password = value!.trim();
-      },
-      validator: (value) {
-        if (value!.length < 8)
-          return 'Please Enter more than 8 Character';
-        else
-          return null;
-      },
-      obscureText: true,
-      keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        labelText: 'Password',
-        icon: Icon(Icons.lock),
-      ),
-    );
+        onSaved: (value) {
+          password = value!.trim();
+        },
+        validator: (value) {
+          if (value!.length < 8)
+            return 'Please Enter more than 8 Character';
+          else
+            return null;
+        },
+        obscureText: passhid,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          labelText: 'Password',
+          icon: Icon(Icons.lock),
+          suffixIcon: InkWell(
+            child: Icon(
+                passhid ? Icons.visibility : Icons.visibility_off_outlined),
+            onTap: () {
+              setState(() {
+                passhid = !passhid;
+              });
+            },
+          ),
+        ));
   }
 
   TextFormField emailTextFormField() {

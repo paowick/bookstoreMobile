@@ -13,6 +13,8 @@ class BookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      animationDuration: Duration(milliseconds: 0),
+      initialIndex: 1,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
@@ -27,7 +29,7 @@ class BookPage extends StatelessWidget {
           ]),
         ),
         body: TabBarView(
-          children: [snapBook(), Text('Store'), Text('Settings')],
+          children: [Text('Mybook'), snapBook(), Text('Settings')],
         ),
       ),
     );

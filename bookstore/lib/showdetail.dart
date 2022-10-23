@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bookstore/addbook.dart';
 import 'package:bookstore/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,6 +55,11 @@ class _BookDetailState extends State<BookDetail> {
           Text(model['title']),
           Text(model['detail']),
           Text('prise : ' + model['price'].toString() + '  Bath'),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       Navigator.pushNamed(context, "/addbook");
+          //     },
+          //     child: Text("aadd"))
         ],
       ),
     );

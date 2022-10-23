@@ -13,13 +13,13 @@ class BookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      animationDuration: Duration(milliseconds: 0),
+      animationDuration: Duration(milliseconds: 100),
       initialIndex: 1,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Books"),
-          actions: <Widget>[buildAddButton(context)],
+          actions: <Widget>[signOutButton(context)],
           bottom: const TabBar(tabs: [
             Tab(
               icon: Icon(Icons.book),
@@ -49,7 +49,7 @@ class BookPage extends StatelessWidget {
         });
   }
 
-  IconButton buildAddButton(context) {
+  IconButton signOutButton(context) {
     return IconButton(
       icon: const Icon(Icons.exit_to_app),
       onPressed: () {
@@ -59,16 +59,17 @@ class BookPage extends StatelessWidget {
     );
   }
 
-  ListView buildBookList(QuerySnapshot data) {
-    return ListView.builder(
+  GridView buildBookList(QuerySnapshot data) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 200,
+          childAspectRatio: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20),
       itemCount: data.size,
       itemBuilder: (BuildContext context, int index) {
         var model = data.docs.elementAt(index);
-
-        return ListTile(
-          title: Text(model['title']),
-          subtitle: Text(model['detail']),
-          trailing: Text("${model['price']}"),
+        return InkWell(
           onTap: () {
             indextemp = index;
             Navigator.push(
@@ -77,6 +78,10 @@ class BookPage extends StatelessWidget {
                   builder: (context) => BookDetail(model['title']),
                 ));
           },
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(model['title']),
+          ),
         );
       },
     );

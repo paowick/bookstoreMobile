@@ -54,7 +54,6 @@ class _BookDetailState extends State<BookDetail> {
           Text(model['title']),
           Text(model['detail']),
           Text('prise : ' + model['price'].toString() + '  Bath'),
-        
         ],
       ),
     );

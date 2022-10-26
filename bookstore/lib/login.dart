@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
         });
   }
 
-  bool passhid = false;
+  bool passhid = true;
 
   TextFormField passwordTextFormField() {
     return TextFormField(

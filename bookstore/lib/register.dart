@@ -1,4 +1,5 @@
 import 'package:bookstore/login.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/main.dart';
 
@@ -18,6 +19,10 @@ class _RegisterPageState extends State<RegisterPage> {
 
   TextEditingController password = TextEditingController();
 
+  TextEditingController name = TextEditingController();
+
+  final store = FirebaseFirestore.instance;
+
   final auth = FirebaseAuth.instance;
 
   @override
@@ -30,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _formstate,
           child: ListView(
             children: <Widget>[
+              buildnameField(),
               buildEmailField(),
               buildPasswordField(),
               buildRegisterButton(),
@@ -49,6 +55,16 @@ class _RegisterPageState extends State<RegisterPage> {
           final _user = await auth.createUserWithEmailAndPassword(
               email: email.text.trim(), password: password.text.trim());
           _user.user!.sendEmailVerification();
+
+          Map<String, dynamic> data = {
+            'email': auth.currentUser!.email.toString(),
+            'uid': auth.currentUser!.uid.toString(),
+            'name': name.text.trim(),
+            'mybook': [],
+          };
+          DocumentReference ref = await store.collection('user').add(data);
+          print('save id = ${ref.id}');
+
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -91,6 +107,25 @@ class _RegisterPageState extends State<RegisterPage> {
         labelText: 'E-mail',
         icon: Icon(Icons.email),
         hintText: 'x@x.com',
+      ),
+    );
+  }
+
+  TextFormField buildnameField() {
+    return TextFormField(
+      controller: name,
+      validator: (value) {
+        if (value!.isEmpty)
+          return 'Please fill in Username field';
+        else
+          return null;
+      },
+      keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
+      decoration: const InputDecoration(
+        labelText: 'Username',
+        icon: Icon(Icons.person),
+        hintText: 'Username',
       ),
     );
   }

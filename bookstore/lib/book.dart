@@ -34,7 +34,7 @@ class BookPage extends StatelessWidget {
       ),
     );
   }
-//
+
   Widget snapBook() {
     return StreamBuilder(
         stream: store.collection('books').snapshots(),

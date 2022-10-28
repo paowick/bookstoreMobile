@@ -1,13 +1,20 @@
+import 'package:bookstore/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/showdetail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bookstore/setting.dart';
 
 int? indextemp = 0;
 
-class BookPage extends StatelessWidget {
+class BookPage extends StatefulWidget {
   BookPage({Key? key}) : super(key: key);
 
+  @override
+  State<BookPage> createState() => _BookPageState();
+}
+
+class _BookPageState extends State<BookPage> {
   final store = FirebaseFirestore.instance;
 
   @override
@@ -19,7 +26,7 @@ class BookPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Books"),
-          actions: <Widget>[signOutButton(context)],
+          actions: <Widget>[search(context)],
           bottom: const TabBar(tabs: [
             Tab(
               icon: Icon(Icons.book),
@@ -29,7 +36,7 @@ class BookPage extends StatelessWidget {
           ]),
         ),
         body: TabBarView(
-          children: [Text('Mybook'), snapBook(), Text('Settings')],
+          children: [Text('Mybook'), snapBook(), settingPage()],
         ),
       ),
     );
@@ -49,13 +56,10 @@ class BookPage extends StatelessWidget {
         });
   }
 
-  IconButton signOutButton(context) {
+  IconButton search(context) {
     return IconButton(
-      icon: const Icon(Icons.exit_to_app),
-      onPressed: () {
-        FirebaseAuth.instance.signOut();
-        Navigator.popAndPushNamed(context, '/');
-      },
+      icon: const Icon(Icons.search),
+      onPressed: () {},
     );
   }
 

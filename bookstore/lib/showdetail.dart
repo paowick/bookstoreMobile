@@ -45,7 +45,7 @@ class _BookDetailState extends State<BookDetail> {
 
   buildBook(QuerySnapshot data) {
     if (data.docs.isEmpty) {
-      return (BookPage().buildBookList(data));
+      return (BookPage() /* .buildBookList(data)*/);
     }
     var model = data.docs.elementAt(indextemp!);
 

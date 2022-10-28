@@ -1,3 +1,4 @@
+import 'package:bookstore/setting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/login.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/addbook': (context) => AddBookPage(),
         '/book': (context) => BookPage(),
         '/resetpass': (context) => Resetpass(),
+        '/setting':(context) => settingPage(),
       },
     );
   }

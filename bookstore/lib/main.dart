@@ -7,6 +7,7 @@ import 'package:bookstore/register.dart';
 import 'package:bookstore/addbook.dart';
 import 'package:bookstore/book.dart';
 import 'package:bookstore/resetpass.dart';
+import 'package:bookstore/edituser.dart';
 
 final appName = 'Michael Hart project';
 void main() async {
@@ -31,12 +32,15 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => (FirebaseAuth.instance.currentUser == null)? LoginPage() : BookPage(),
+        '/': (context) => (FirebaseAuth.instance.currentUser == null)
+            ? LoginPage()
+            : BookPage(),
         '/register': (context) => RegisterPage(),
         '/addbook': (context) => AddBookPage(),
         '/book': (context) => BookPage(),
         '/resetpass': (context) => Resetpass(),
-        '/setting':(context) => settingPage(),
+        '/setting': (context) => settingPage(),
+        '/edituser': (context) => EditUser(),
       },
     );
   }

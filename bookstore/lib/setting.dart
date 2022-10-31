@@ -1,9 +1,11 @@
+import 'package:bookstore/edituser.dart';
 import 'package:bookstore/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/setting.dart';
+import 'package:bookstore/edituser.dart';
 
 class settingPage extends StatefulWidget {
   settingPage({super.key});
@@ -50,12 +52,21 @@ class _settingPageState extends State<settingPage> {
             children: [
               Text(document["name"]),
               Text(document["email"]),
+              editButton(context),
               signOutButton(context)
             ],
           ),
         );
       }).toList(),
     );
+  }
+
+  ElevatedButton editButton(context) {
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/edituser');
+        },
+        child: Text('Edit'));
   }
 
   ElevatedButton signOutButton(context) {

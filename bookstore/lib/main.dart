@@ -1,3 +1,4 @@
+import 'package:bookstore/searchpage.dart';
 import 'package:bookstore/setting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/resetpass': (context) => Resetpass(),
         '/setting': (context) => settingPage(),
         '/edituser': (context) => EditUser(),
+        '/searchpage':(context) => SearchPage(),
       },
     );
   }

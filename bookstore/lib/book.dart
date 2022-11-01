@@ -59,7 +59,9 @@ class _BookPageState extends State<BookPage> {
   IconButton search(context) {
     return IconButton(
       icon: const Icon(Icons.search),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, '/searchpage');
+      },
     );
   }
 

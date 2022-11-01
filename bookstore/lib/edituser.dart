@@ -1,9 +1,12 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:path_provider/path_provider.dart';
 
 class EditUser extends StatefulWidget {
   const EditUser({super.key});
@@ -15,6 +18,9 @@ class EditUser extends StatefulWidget {
 class _EditUserState extends State<EditUser> {
   String yourName = '';
   String yourAddress = '';
+  File? _avatar;
+
+  String urlimgRam = '';
 
   final _username = TextEditingController();
   final _address = TextEditingController();
@@ -24,9 +30,112 @@ class _EditUserState extends State<EditUser> {
     return Scaffold(
       appBar: AppBar(title: Text('EditProfile')),
       body: ListView(
-        children: [Name(), gender(), address(), save()],
+        children: [
+          imageUser(),
+          Name(),
+          gender(),
+          address(),
+          save(),
+        ],
       ),
     );
+  }
+
+  Widget imageUser() {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('user')
+            .where("uid",
+                isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString())
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return Container(
+              child: snapshot.hasData
+                  ? buildimageUser(snapshot.data!)
+                  : LinearProgressIndicator());
+        });
+  }
+
+  Widget buildimageUser(QuerySnapshot data) {
+    String urlRam = data.docs.first['urlimage'].toString();
+    urlimgRam = urlRam;
+    return Container(
+      child: urlRam == ''
+          ? CircleAvatar(
+              maxRadius: 80,
+              backgroundImage: NetworkImage(
+                  "https://firebasestorage.googleapis.com/v0/b/bookstore-56a05.appspot.com/o/userimage%2Fdefalutuser(no%20delete).jpg?alt=media&token=c047db4f-ca54-4a3c-b275-f607534e0d70"),
+              child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () => onChooseImage(data),
+                          child: Icon(Icons.camera),
+                        ),
+                      ])),
+            )
+          : CircleAvatar(
+              maxRadius: 80,
+              backgroundImage: NetworkImage("$urlRam"),
+              child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () => onChooseImage(data),
+                          child: Icon(Icons.camera),
+                        ),
+                      ])),
+            ),
+    );
+  }
+
+  void onChooseImage(QuerySnapshot data) async {
+    FirebaseStorage firebaseStorage = await FirebaseStorage.instance;
+    final urlRef = await data.docs.first["urlimage"];
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _avatar = File(pickedFile.path);
+        uploadPicture();
+        updateimg(data);
+      } else {
+        urlimgRam = urlRef;
+        updateimg(data)
+      }
+      
+    });
+  }
+
+  Future<void> updateimg(QuerySnapshot data) async {
+    String? docId;
+    data.docs.forEach((res) {
+      docId = res.id;
+    });
+    Map<String, dynamic> value = {
+      'urlimage': urlimgRam,
+    };
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc('$docId')
+        .update(value);
+  }
+
+  Future<void> uploadPicture() async {
+    Random random = Random();
+    int i = random.nextInt(10000000);
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference storageReference =
+        firebaseStorage.ref().child('/userimage/img$i.jpg');
+    UploadTask uploadTask = storageReference.putFile(_avatar!);
+
+    final _urlimg = await (await uploadTask).ref.getDownloadURL();
+    urlimgRam = _urlimg;
   }
 
   Widget save() {
@@ -61,7 +170,6 @@ class _EditUserState extends State<EditUser> {
                 .collection('user')
                 .doc('$docId')
                 .update(value);
-
             Navigator.pop(context);
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(

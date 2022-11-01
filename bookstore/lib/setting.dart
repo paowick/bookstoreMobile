@@ -45,15 +45,28 @@ class _settingPageState extends State<settingPage> {
   }
 
   Widget buildUser(QuerySnapshot data) {
+    String urlRam = data.docs.first['urlimage'].toString();
+    if (urlRam == "") {
+      urlRam =
+          "https://firebasestorage.googleapis.com/v0/b/bookstore-56a05.appspot.com/o/userimage%2Fdefalutuser(no%20delete).jpg?alt=media&token=c047db4f-ca54-4a3c-b275-f607534e0d70";
+    }
     return Column(
       children: data.docs.map((document) {
         return Container(
           child: Column(
             children: [
+              CircleAvatar(
+                  maxRadius: 60, backgroundImage: NetworkImage("$urlRam")),
               Text(document["name"]),
               Text(document["email"]),
-              editButton(context),
-              signOutButton(context)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  editButton(context),
+                  SizedBox(width: 50),
+                  signOutButton(context)
+                ],
+              ),
             ],
           ),
         );

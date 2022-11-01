@@ -61,10 +61,12 @@ class _RegisterPageState extends State<RegisterPage> {
             'uid': auth.currentUser!.uid.toString(),
             'name': name.text.trim(),
             'mybook': [],
+            'gender': "",
+            'address': "",
+            'urlimage': "",
           };
           DocumentReference ref = await store.collection('user').add(data);
           print('save id = ${ref.id}');
-
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const LoginPage()),

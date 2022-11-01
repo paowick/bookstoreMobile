@@ -13,7 +13,9 @@ class EditUser extends StatefulWidget {
 }
 
 class _EditUserState extends State<EditUser> {
-  final _form = GlobalKey<FormState>();
+  String yourName = '';
+  String yourAddress = '';
+
   final _username = TextEditingController();
   final _address = TextEditingController();
 
@@ -22,9 +24,53 @@ class _EditUserState extends State<EditUser> {
     return Scaffold(
       appBar: AppBar(title: Text('EditProfile')),
       body: ListView(
-        children: [Name(), gender(), address()],
+        children: [Name(), gender(), address(), save()],
       ),
     );
+  }
+
+  Widget save() {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('user')
+            .where("uid",
+                isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString())
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          return Container(
+              child: snapshot.hasData
+                  ? buildSaveButton(snapshot.data!)
+                  : LinearProgressIndicator());
+        });
+  }
+
+  ElevatedButton buildSaveButton(QuerySnapshot data) {
+    String? docId;
+    data.docs.forEach((res) {
+      docId = res.id;
+    });
+    return ElevatedButton(
+        child: const Text('Save'),
+        onPressed: () async {
+          Map<String, dynamic> value = {
+            'name': yourName,
+            'address': yourAddress,
+          };
+          try {
+            await FirebaseFirestore.instance
+                .collection('user')
+                .doc('$docId')
+                .update(value);
+
+            Navigator.pop(context);
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Error $e'),
+              ),
+            );
+          }
+        });
   }
 
   Widget gender() {
@@ -73,8 +119,12 @@ class _EditUserState extends State<EditUser> {
   }
 
   TextFormField buildUserName(QuerySnapshot data) {
+    yourName = data.docs.first['name'].toString();
     final _username = TextEditingController(text: data.docs.first['name']);
     return TextFormField(
+      onChanged: (value) {
+        yourName = value;
+      },
       controller: _username,
       decoration: const InputDecoration(
         labelText: 'Username',
@@ -85,8 +135,12 @@ class _EditUserState extends State<EditUser> {
   }
 
   TextFormField buildAddress(QuerySnapshot data) {
+    yourAddress = data.docs.first['address'].toString();
     final _address = TextEditingController(text: data.docs.first['address']);
     return TextFormField(
+        onChanged: (value) {
+          yourAddress = value;
+        },
         controller: _address,
         decoration: const InputDecoration(
           labelText: 'America, New York City',

@@ -65,32 +65,75 @@ class _EditUserState extends State<EditUser> {
               maxRadius: 80,
               backgroundImage: NetworkImage(
                   "https://firebasestorage.googleapis.com/v0/b/bookstore-56a05.appspot.com/o/userimage%2Fdefalutuser(no%20delete).jpg?alt=media&token=c047db4f-ca54-4a3c-b275-f607534e0d70"),
-              child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () => onChooseImage(data),
-                          child: Icon(Icons.camera),
-                        ),
-                      ])),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                  ],
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  SizedBox(
+                    width: 50,
+                  ),
+                  InkWell(
+                    onTap: () => onChooseImage(data),
+                    child: Icon(Icons.camera),
+                  ),
+                  InkWell(
+                    onTap: () => onChooseImageGallery(data),
+                    child: Icon(Icons.folder),
+                  )
+                ]),
+              ]),
             )
           : CircleAvatar(
               maxRadius: 80,
               backgroundImage: NetworkImage("$urlRam"),
-              child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        InkWell(
-                          onTap: () => onChooseImage(data),
-                          child: Icon(Icons.camera),
-                        ),
-                      ])),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 275,
+                      height: 50,
+                    ),
+                    InkWell(
+                      onTap: () => onChooseImageGallery(data),
+                      child: Icon(Icons.folder),
+                    ),
+                  ],
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  SizedBox(
+                    width: 135,
+                  ),
+                  InkWell(
+                    onTap: () => onChooseImage(data),
+                    child: Icon(Icons.camera),
+                  ),
+                ]),
+              ]),
             ),
     );
+  }
+
+  void onChooseImageGallery(QuerySnapshot data) async {
+    FirebaseStorage firebaseStorage = await FirebaseStorage.instance;
+    final urlRef = await data.docs.first["urlimage"];
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _avatar = File(pickedFile.path);
+        uploadPicture(data);
+      } else {
+        urlimgRam = urlRef;
+        updateimg(data);
+      }
+    });
   }
 
   void onChooseImage(QuerySnapshot data) async {
@@ -101,8 +144,7 @@ class _EditUserState extends State<EditUser> {
     setState(() {
       if (pickedFile != null) {
         _avatar = File(pickedFile.path);
-        uploadPicture();
-        updateimg(data);
+        uploadPicture(data);
       } else {
         urlimgRam = urlRef;
         updateimg(data);
@@ -124,7 +166,7 @@ class _EditUserState extends State<EditUser> {
         .update(value);
   }
 
-  Future<void> uploadPicture() async {
+  Future<void> uploadPicture(QuerySnapshot data) async {
     Random random = Random();
     int i = random.nextInt(10000000);
 
@@ -135,6 +177,7 @@ class _EditUserState extends State<EditUser> {
 
     final _urlimg = await (await uploadTask).ref.getDownloadURL();
     urlimgRam = _urlimg;
+    updateimg(data);
   }
 
   Widget save() {

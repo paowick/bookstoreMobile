@@ -105,9 +105,8 @@ class _EditUserState extends State<EditUser> {
         updateimg(data);
       } else {
         urlimgRam = urlRef;
-        updateimg(data)
+        updateimg(data);
       }
-      
     });
   }
 

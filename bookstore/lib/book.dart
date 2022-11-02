@@ -68,6 +68,7 @@ class _BookPageState extends State<BookPage> {
   GridView buildBookList(QuerySnapshot data) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisExtent: 250,
           maxCrossAxisExtent: 200,
           childAspectRatio: 2,
           crossAxisSpacing: 20,
@@ -84,9 +85,30 @@ class _BookPageState extends State<BookPage> {
                   builder: (context) => BookDetail(model['title']),
                 ));
           },
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(model['title']),
+          child: Card(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Image.network(
+                        model['urlimage'],
+                        height: 200,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text(model['title'])],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [Text("${model["price"].toString()} bath")],
+                )
+              ],
+            ),
           ),
         );
       },

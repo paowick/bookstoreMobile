@@ -78,14 +78,37 @@ class _payMentPageState extends State<payMentPage> {
     QuerySnapshot databook,
     QuerySnapshot datauser,
   ) {
-    FirebaseFirestore.instance.collection('user').doc().set;
+    List<dynamic> list = datauser.docs.first['mybook'];
 
-    return ElevatedButton(
-        onPressed: (() {
-          print(datauser.docs.first['mybook']);
-        }),
-        child: Text('pay'));
+    if (list.contains(databook.docs.first['title'])) {
+      return Row(
+        children: [Text('you have it collection')],
+      );
+    } else {
+      return ElevatedButton(
+          onPressed: (() {
+            list.add(databook.docs.first['title']);
+            update(list, datauser);
+          }),
+          child: Text('pay'));
+    }
   }
+}
+
+Future<void> update(dynamic dataString, QuerySnapshot data) async {
+  String? docId;
+  data.docs.forEach((res) {
+    docId = res.id;
+  });
+  Map<String, dynamic> value = {
+    'mybook': dataString,
+  };
+  try {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc('$docId')
+        .update(value);
+  } catch (e) {}
 }
 
 Widget detailStream(String id) {

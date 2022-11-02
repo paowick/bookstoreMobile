@@ -44,6 +44,8 @@ class _settingPageState extends State<settingPage> {
     );
   }
 
+  //asdw
+
   Widget buildUser(QuerySnapshot data) {
     String urlRam = data.docs.first['urlimage'].toString();
     if (urlRam == "") {

@@ -1,3 +1,4 @@
+import 'package:bookstore/bookshelf.dart';
 import 'package:bookstore/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/showdetail.dart';
@@ -20,7 +21,7 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      animationDuration: Duration(milliseconds: 100),
+      animationDuration: Duration(milliseconds: 200),
       initialIndex: 1,
       length: 3,
       child: Scaffold(
@@ -36,7 +37,7 @@ class _BookPageState extends State<BookPage> {
           ]),
         ),
         body: TabBarView(
-          children: [Text('Mybook'), snapBook(), settingPage()],
+          children: [bookShelfPage(), snapBook(), settingPage()],
         ),
       ),
     );

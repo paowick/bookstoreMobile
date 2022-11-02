@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
         '/setting': (context) => settingPage(),
         '/edituser': (context) => EditUser(),
         '/searchpage': (context) => SearchPage(),
-        
       },
     );
   }

@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:bookstore/addbook.dart';
 import 'package:bookstore/book.dart';
+import 'package:bookstore/payment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -50,30 +49,53 @@ class _BookDetailState extends State<BookDetail> {
     var model = data.docs.elementAt(indextemp!);
 
     return Center(
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Image.network(
-                  model['urlimage'],
-                  height: 200,
-                  width: 500,
-                  fit: BoxFit.fitHeight,
-                ),
-              )
-            ],
-          ),
-          Text(model['title']),
-          Text(model['detail']),
-          Text('prise : ' + model['price'].toString() + '  Bath'),
-          /* ElevatedButton(
+      child: Column(children: [
+        Row(
+          children: [
+            Expanded(
+              child: Image.network(
+                model['urlimage'],
+                height: 200,
+                width: 500,
+                fit: BoxFit.fitHeight,
+              ),
+            )
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(model['title']),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(model['detail']),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('prise : ' + model['price'].toString() + '  Bath'),
+          ],
+        ),
+        /* ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, "/addbook");
               },
               child: Text("aadd"))  */
-        ],
-      ),
+
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => payMentPage(model['title']),
+                  ));
+            },
+            child: Text('Buy'))
+      ]),
     );
   }
 

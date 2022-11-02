@@ -52,18 +52,6 @@ class _BookDetailState extends State<BookDetail> {
     return Center(
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Image.network(
-                  model['urlimage'],
-                  height: 200,
-                  width: 500,
-                  fit: BoxFit.fitHeight,
-                ),
-              )
-            ],
-          ),
           Text(model['title']),
           Text(model['detail']),
           Text('prise : ' + model['price'].toString() + '  Bath'),

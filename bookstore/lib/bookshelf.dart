@@ -71,7 +71,7 @@ class _bookShelfPageState extends State<bookShelfPage> {
             mainAxisExtent: 140,
             maxCrossAxisExtent: 100,
             childAspectRatio: 4,
-            crossAxisSpacing: 20,
+            crossAxisSpacing: 0,
             mainAxisSpacing: 20),
         itemCount: modellist.length,
         itemBuilder: (BuildContext context, int index) {
@@ -94,14 +94,21 @@ class _bookShelfPageState extends State<bookShelfPage> {
                         child: Image.network(
                           model['urlimage'],
                           height: 100,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fill,
                         ),
                       )
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text(model['title'])],
+                    children: [
+                      Container(
+                        child: Text(model['title'],
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
+                      )
+                    ],
                   ),
                 ],
               ),

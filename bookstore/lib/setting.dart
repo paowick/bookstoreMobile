@@ -57,18 +57,34 @@ class _settingPageState extends State<settingPage> {
         return Container(
           child: Column(
             children: [
-              CircleAvatar(
-                  maxRadius: 60, backgroundImage: NetworkImage("$urlRam")),
-              Text(document["name"]),
-              Text(document["email"]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  editButton(context),
-                  SizedBox(width: 50),
-                  signOutButton(context)
-                ],
+              SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                    maxRadius: 80, backgroundImage: NetworkImage("$urlRam")),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  document["name"],
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  document["email"],
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: editButton(context),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: signOutButton(context),
+              )
             ],
           ),
         );
@@ -78,6 +94,15 @@ class _settingPageState extends State<settingPage> {
 
   ElevatedButton editButton(context) {
     return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(180, 40),
+        ),
         onPressed: () {
           Navigator.pushNamed(context, '/edituser');
         },
@@ -86,6 +111,15 @@ class _settingPageState extends State<settingPage> {
 
   ElevatedButton signOutButton(context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.lightBlue,
+        onPrimary: Colors.white,
+        shadowColor: Colors.greenAccent,
+        elevation: 1,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+        minimumSize: Size(180, 40),
+      ),
       onPressed: () {
         FirebaseAuth.instance.signOut();
         Navigator.popAndPushNamed(context, '/');

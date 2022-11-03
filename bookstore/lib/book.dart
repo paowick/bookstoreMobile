@@ -103,18 +103,28 @@ class _BookPageState extends State<BookPage> {
                         child: Image.network(
                           model['urlimage'],
                           height: 200,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fill,
                         ),
                       )
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text(model['title'])],
+                    children: [
+                      Text(model['title'],
+                          style: TextStyle(
+                            fontSize: 20,
+                          ))
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("${model["price"].toString()} bath")],
+                    children: [
+                      Text("${model["price"].toString()} bath",
+                          style: TextStyle(
+                            fontSize: 10,
+                          ))
+                    ],
                   )
                 ],
               ),

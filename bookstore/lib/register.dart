@@ -35,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _formstate,
           child: ListView(
             children: <Widget>[
+              SizedBox(height: 50),
               Row(
                 children: [
                   Padding(

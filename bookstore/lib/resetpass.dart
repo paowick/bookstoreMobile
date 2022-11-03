@@ -25,6 +25,7 @@ class _ResetpassState extends State<Resetpass> {
         autovalidateMode: AutovalidateMode.always,
         child: ListView(
           children: <Widget>[
+            SizedBox(height: 50),
             Container(
                 height: 200,
                 width: 200,

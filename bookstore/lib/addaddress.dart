@@ -1,9 +1,13 @@
 import 'package:bookstore/book.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 class addAddressPage extends StatefulWidget {
   const addAddressPage({super.key});
@@ -13,7 +17,41 @@ class addAddressPage extends StatefulWidget {
 }
 
 class _addAddressPageState extends State<addAddressPage> {
+  String name = FirebaseAuth.instance.currentUser!.displayName.toString();
+  int _counter = 0;
+  String? message;
+  String channelId = "1000";
+  String channelName = "FLUTTER_NOTIFICATION_CHANNEL";
+  String channelDescription = "FLUTTER_NOTIFICATION_CHANNEL_DETAIL";
   String yourAddress = '';
+
+  initState() {
+    message = "No message.";
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('notiicon');
+
+    var initializationSettingsIOS = DarwinInitializationSettings(
+        onDidReceiveLocalNotification: (id, title, body, payload) async {
+      print("onDidReceiveLocalNotification called.");
+    });
+
+    var initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: (payload) async {
+// when user tap on notification.
+
+      print("onSelectNotification called.");
+
+      setState(() {
+        message = payload.payload;
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +61,34 @@ class _addAddressPageState extends State<addAddressPage> {
         body: Column(
           children: [address(), save()],
         ));
+  }
+
+  sendNotification() async {
+    const BigPictureStyleInformation bigPictureStyleInformation =
+        const BigPictureStyleInformation(
+            DrawableResourceAndroidBitmap('notiicon'),
+            largeIcon: const DrawableResourceAndroidBitmap('flutter'),
+            contentTitle: 'สวัสดีคุณลูกค้า ',
+            summaryText: 'เราจะส่งหนังสึอไห้คุณ ในเร็วๆนี่');
+
+    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+      '10000',
+      'FLUTTER_NOTIFICATION_CHANNEL',
+      channelDescription: 'FLUTTER_NOTIFICATION_CHANNEL_DETAIL',
+      importance: Importance.max,
+      priority: Priority.high,
+      styleInformation: bigPictureStyleInformation,
+    );
+
+    var iOSPlatformChannelSpecifics = const DarwinNotificationDetails();
+
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+        111, 'เเจ้งเตือนการส่งสิ่นค้า', '', platformChannelSpecifics,
+        payload: '');
   }
 
   Widget address() {
@@ -85,15 +151,12 @@ class _addAddressPageState extends State<addAddressPage> {
           };
           try {
             //=============================================notification here=====================
-
+            sendNotification();
             await FirebaseFirestore.instance
                 .collection('user')
                 .doc('$docId')
                 .update(value);
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => BookPage()),
-                ModalRoute.withName('/'));
+            Navigator.popAndPushNamed(context, '/book');
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

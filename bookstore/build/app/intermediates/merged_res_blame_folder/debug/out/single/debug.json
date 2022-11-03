@@ -24,7 +24,15 @@
         "source": "C:\\miniproject\\bookstoreMobile\\bookstore\\android\\app\\src\\main\\res\\drawable\\launch_background.xml"
     },
     {
+        "merged": "C:\\miniproject\\bookstoreMobile\\bookstore\\build\\app\\intermediates\\merged_res\\debug\\drawable_notiicon.png.flat",
+        "source": "C:\\miniproject\\bookstoreMobile\\bookstore\\android\\app\\src\\main\\res\\drawable\\notiicon.png"
+    },
+    {
         "merged": "C:\\miniproject\\bookstoreMobile\\bookstore\\build\\app\\intermediates\\merged_res\\debug\\drawable-v21_launch_background.xml.flat",
         "source": "C:\\miniproject\\bookstoreMobile\\bookstore\\android\\app\\src\\main\\res\\drawable-v21\\launch_background.xml"
+    },
+    {
+        "merged": "C:\\miniproject\\bookstoreMobile\\bookstore\\build\\app\\intermediates\\merged_res\\debug\\drawable_flutter.jpg.flat",
+        "source": "C:\\miniproject\\bookstoreMobile\\bookstore\\android\\app\\src\\main\\res\\drawable\\flutter.jpg"
     }
 ]

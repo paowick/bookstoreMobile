@@ -22,51 +22,90 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(appName),
+        body: Center(
+      child: Form(
+        autovalidateMode: AutovalidateMode.always,
+        key: _formstate,
+        child: Column(
+          children: <Widget>[
+            Image.asset("assets/images/logo.png"),
+            emailTextFormField(),
+            passwordTextFormField(),
+            loginButton(),
+            registerButton(context),
+            forgotpassword(context),
+          ],
         ),
-        body: Form(
-          autovalidateMode: AutovalidateMode.always,
-          key: _formstate,
-          child: ListView(
-            children: <Widget>[
-              emailTextFormField(),
-              passwordTextFormField(),
-              loginButton(),
-              registerButton(context),
-              forgotpassword(context),
-            ],
-          ),
-        ));
+      ),
+    ));
   }
 
   ElevatedButton forgotpassword(BuildContext context) {
     return ElevatedButton(
-// ignore: prefer_const_constructors
-
-      child: Text('Reset password'),
-
-      onPressed: () {
-        Navigator.pushNamed(context, '/resetpass');
-      },
-    );
+        child: Container(
+            width: 220,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.lightBlue[400],
+                borderRadius: BorderRadius.circular(30)),
+            child: Center(
+                child: Text(
+              'Reset password',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Poppins-Bold",
+                  fontSize: 13,
+                  letterSpacing: 1.0),
+            ))),
+        onPressed: () {
+          Navigator.pushNamed(context, '/resetpass');
+        });
   }
 
   ElevatedButton registerButton(BuildContext context) {
     return ElevatedButton(
-// ignore: prefer_const_constructors
-      child: Text('Register new account'),
-      onPressed: () {
-        print('Goto Regis pagge');
+        child: Container(
+          width: 220,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.lightBlue[400],
+              borderRadius: BorderRadius.circular(30)),
+          child: Center(
+              child: Text(
+            'Register new account',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Poppins-Bold",
+                fontSize: 13,
+                letterSpacing: 1.0),
+          )),
+        ),
+        onPressed: () {
+          print('Goto Regis pagge');
 
-        Navigator.pushNamed(context, '/register');
-      },
-    );
+          Navigator.pushNamed(context, '/register');
+        });
   }
 
   ElevatedButton loginButton() {
     return ElevatedButton(
-        child: Text('Login'),
+        child: Container(
+          width: 220,
+          height: 55,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Color(0xFF17ead9), Color(0xFF6078ea)]),
+              borderRadius: BorderRadius.circular(30)),
+          child: Center(
+              child: Text(
+            'Login',
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Poppins-Bold",
+                fontSize: 20,
+                letterSpacing: 1.0),
+          )),
+        ),
         onPressed: () async {
           if (_formstate.currentState!.validate()) {
             print('Valid Form');
@@ -118,8 +157,12 @@ class _LoginPageState extends State<LoginPage> {
         obscureText: passhid,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
           labelText: 'Password',
-          icon: Icon(Icons.lock),
+          icon: Icon(
+            Icons.lock,
+            color: Colors.black,
+          ),
           suffixIcon: InkWell(
             child: Icon(
                 passhid ? Icons.visibility : Icons.visibility_off_outlined),
@@ -146,8 +189,12 @@ class _LoginPageState extends State<LoginPage> {
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
         labelText: 'E-mail',
-        icon: Icon(Icons.email),
+        icon: Icon(
+          Icons.email,
+          color: Colors.black,
+        ),
         hintText: 'x@x.com',
       ),
     );

@@ -46,7 +46,9 @@ class _AddBookPageState extends State<AddBookPage> {
             Map<String, dynamic> data = {
               'title': _title.text,
               'detail': _detail.text,
-              'price': double.parse(_price.text)
+              'price': double.parse(_price.text),
+              'pdf': '',
+              'urlimage': ''
             };
 
             try {

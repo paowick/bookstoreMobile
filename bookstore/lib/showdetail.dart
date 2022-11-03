@@ -80,12 +80,11 @@ class _BookDetailState extends State<BookDetail> {
             Text('prise : ' + model['price'].toString() + '  Bath'),
           ],
         ),
-        /* ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/addbook");
-              },
-              child: Text("aadd"))  */
-
+        /*ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/addbook");
+            },
+            child: Text("aadd")),*/
         ElevatedButton(
             onPressed: () {
               Navigator.pushReplacement(

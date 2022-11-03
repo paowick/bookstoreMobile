@@ -156,7 +156,7 @@ class _addAddressPageState extends State<addAddressPage> {
                 .collection('user')
                 .doc('$docId')
                 .update(value);
-            Navigator.popAndPushNamed(context, '/book');
+            Navigator.pop(context, '/book');
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

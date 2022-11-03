@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bookstore/addaddress.dart';
+import 'package:bookstore/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -86,7 +87,7 @@ class _payMentPageState extends State<payMentPage> {
         children: [
           ElevatedButton(
               onPressed: (() {
-                Navigator.pushNamed(context, '/addaddress');
+                Navigator.pushReplacementNamed(context, '/addaddress');
               }),
               child: Text('book')),
           SizedBox(width: 50),
@@ -98,7 +99,7 @@ class _payMentPageState extends State<payMentPage> {
         children: [
           ElevatedButton(
               onPressed: (() {
-                Navigator.pushNamed(context, '/addaddress');
+                Navigator.pushReplacementNamed(context, '/addaddress');
               }),
               child: Text('book')),
           SizedBox(width: 50),
@@ -106,7 +107,6 @@ class _payMentPageState extends State<payMentPage> {
               onPressed: (() {
                 list.add(databook.docs.first['title']);
                 update(list, datauser);
-                Navigator.maybePop(context, (route) => '/book');
               }),
               child: Text('EBook')),
         ],

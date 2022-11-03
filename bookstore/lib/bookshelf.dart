@@ -54,8 +54,10 @@ class _bookShelfPageState extends State<bookShelfPage> {
     List<dynamic> list = datauser.docs.first['mybook'];
     for (int i = 0; i < databook.size; i++) {
       var model = databook.docs.elementAt(i);
-      if (list.contains(model['title']))
-        await {modellist.add(databook.docs.elementAt(i))};
+      if (list.contains(model['title'])) {
+        modellist.add(databook.docs.elementAt(i));
+      }
+      ;
     }
   }
 

@@ -96,7 +96,11 @@ class _payMentPageState extends State<payMentPage> {
     } else {
       return Row(
         children: [
-          ElevatedButton(onPressed: (() {}), child: Text('book')),
+          ElevatedButton(
+              onPressed: (() {
+                Navigator.pushNamed(context, '/addaddress');
+              }),
+              child: Text('book')),
           SizedBox(width: 50),
           ElevatedButton(
               onPressed: (() {

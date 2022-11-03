@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bookstore/addaddress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -82,15 +83,30 @@ class _payMentPageState extends State<payMentPage> {
 
     if (list.contains(databook.docs.first['title'])) {
       return Row(
-        children: [Text('you have it collection')],
+        children: [
+          ElevatedButton(
+              onPressed: (() {
+                Navigator.pushNamed(context, '/addaddress');
+              }),
+              child: Text('book')),
+          SizedBox(width: 50),
+          Text('Ebook in collection')
+        ],
       );
     } else {
-      return ElevatedButton(
-          onPressed: (() {
-            list.add(databook.docs.first['title']);
-            update(list, datauser);
-          }),
-          child: Text('pay'));
+      return Row(
+        children: [
+          ElevatedButton(onPressed: (() {}), child: Text('book')),
+          SizedBox(width: 50),
+          ElevatedButton(
+              onPressed: (() {
+                list.add(databook.docs.first['title']);
+                update(list, datauser);
+                Navigator.maybePop(context, (route) => '/book');
+              }),
+              child: Text('EBook')),
+        ],
+      );
     }
   }
 }

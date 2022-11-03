@@ -1,3 +1,4 @@
+import 'package:bookstore/addaddress.dart';
 import 'package:bookstore/payment.dart';
 import 'package:bookstore/searchpage.dart';
 import 'package:bookstore/setting.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/setting': (context) => settingPage(),
         '/edituser': (context) => EditUser(),
         '/searchpage': (context) => SearchPage(),
+        '/addaddress':(context) => addAddressPage(),
       },
     );
   }

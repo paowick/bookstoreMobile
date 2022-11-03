@@ -26,14 +26,35 @@ class _LoginPageState extends State<LoginPage> {
       child: Form(
         autovalidateMode: AutovalidateMode.always,
         key: _formstate,
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Image.asset("assets/images/logo.png"),
-            emailTextFormField(),
-            passwordTextFormField(),
-            loginButton(),
-            registerButton(context),
-            forgotpassword(context),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: emailTextFormField(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: passwordTextFormField(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                loginButton(),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                registerButton(context),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                forgotpassword(context),
+              ],
+            ),
           ],
         ),
       ),
@@ -42,21 +63,24 @@ class _LoginPageState extends State<LoginPage> {
 
   ElevatedButton forgotpassword(BuildContext context) {
     return ElevatedButton(
-        child: Container(
-            width: 220,
-            height: 40,
-            decoration: BoxDecoration(
-                color: Colors.lightBlue[400],
-                borderRadius: BorderRadius.circular(30)),
-            child: Center(
-                child: Text(
-              'Reset password',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: "Poppins-Bold",
-                  fontSize: 13,
-                  letterSpacing: 1.0),
-            ))),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(180, 40),
+        ),
+        child: Center(
+            child: Text(
+          'Reset password',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Poppins-Bold",
+              fontSize: 13,
+              letterSpacing: 1.0),
+        )),
         onPressed: () {
           Navigator.pushNamed(context, '/resetpass');
         });
@@ -64,22 +88,24 @@ class _LoginPageState extends State<LoginPage> {
 
   ElevatedButton registerButton(BuildContext context) {
     return ElevatedButton(
-        child: Container(
-          width: 220,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.lightBlue[400],
-              borderRadius: BorderRadius.circular(30)),
-          child: Center(
-              child: Text(
-            'Register new account',
-            style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Poppins-Bold",
-                fontSize: 13,
-                letterSpacing: 1.0),
-          )),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(180, 40),
         ),
+        child: Center(
+            child: Text(
+          'Sign up',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Poppins-Bold",
+              fontSize: 13,
+              letterSpacing: 1.0),
+        )),
         onPressed: () {
           print('Goto Regis pagge');
 
@@ -89,23 +115,24 @@ class _LoginPageState extends State<LoginPage> {
 
   ElevatedButton loginButton() {
     return ElevatedButton(
-        child: Container(
-          width: 220,
-          height: 55,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Color(0xFF17ead9), Color(0xFF6078ea)]),
-              borderRadius: BorderRadius.circular(30)),
-          child: Center(
-              child: Text(
-            'Login',
-            style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Poppins-Bold",
-                fontSize: 20,
-                letterSpacing: 1.0),
-          )),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(250, 40),
         ),
+        child: Center(
+            child: Text(
+          'Login',
+          style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Poppins-Bold",
+              fontSize: 20,
+              letterSpacing: 1.0),
+        )),
         onPressed: () async {
           if (_formstate.currentState!.validate()) {
             print('Valid Form');
@@ -195,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
           Icons.email,
           color: Colors.black,
         ),
-        hintText: 'x@x.com',
+        hintText: 'Type Your Email',
       ),
     );
   }

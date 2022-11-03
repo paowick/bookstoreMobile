@@ -29,16 +29,50 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(appName),
+          title: Text(appName, style: TextStyle(color: Colors.white)),
         ),
         body: Form(
           key: _formstate,
           child: ListView(
             children: <Widget>[
-              buildnameField(),
-              buildEmailField(),
-              buildPasswordField(),
-              buildRegisterButton(),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Container(
+                        child: Text(
+                      'Sign up',
+                      style:
+                          TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                    )),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: buildnameField(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: buildEmailField(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: buildPasswordField(),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: buildRegisterButton(),
+                  ),
+                ],
+              ),
             ],
           ),
         ));
@@ -46,7 +80,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
   ElevatedButton buildRegisterButton() {
     return ElevatedButton(
-      child: const Text('Register'),
+      style: ElevatedButton.styleFrom(
+        primary: Colors.lightBlue,
+        onPrimary: Colors.white,
+        shadowColor: Colors.greenAccent,
+        elevation: 1,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+        minimumSize: Size(250, 40),
+      ),
+      child: const Text('Sign up'),
       onPressed: () async {
         print('regis new Account');
         if (_formstate.currentState!.validate()) {
@@ -108,7 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
       decoration: const InputDecoration(
         labelText: 'E-mail',
         icon: Icon(Icons.email),
-        hintText: 'x@x.com',
+        hintText: 'Type Your Email',
       ),
     );
   }

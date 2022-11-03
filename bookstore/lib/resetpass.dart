@@ -19,14 +19,43 @@ class _ResetpassState extends State<Resetpass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName),
+        title: Text(appName, style: TextStyle(color: Colors.white)),
       ),
       body: Form(
         autovalidateMode: AutovalidateMode.always,
         child: ListView(
           children: <Widget>[
-            emailTextFormField(),
-            sendToEmail(context),
+            Container(
+                height: 200,
+                width: 200,
+                child: Image.asset("assets/images/lockicon.png")),
+            Center(
+              child: Container(
+                  child: Text(
+                'Forgot Your',
+                style: TextStyle(fontSize: 40),
+              )),
+            ),
+            Center(
+              child: Container(
+                  child: Text(
+                'password ?',
+                style: TextStyle(fontSize: 40),
+              )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: emailTextFormField(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: sendToEmail(context),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -47,7 +76,7 @@ class _ResetpassState extends State<Resetpass> {
       decoration: const InputDecoration(
         labelText: 'E-mail',
         icon: Icon(Icons.email),
-        hintText: 'x@x.com',
+        hintText: 'Type Your Email',
       ),
     );
   }
@@ -61,6 +90,15 @@ class _ResetpassState extends State<Resetpass> {
 
   ElevatedButton sendToEmail(BuildContext context) {
     return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(250, 40),
+        ),
         onPressed: () {
           resetPassword(_email.text);
           Navigator.pushAndRemoveUntil(

@@ -40,7 +40,7 @@
 25-->[androidx.core:core:1.8.0] C:\Users\korn\.gradle\caches\transforms-3\0ce731f8c62e88af9af421907435d7da\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 26        android:debuggable="true"
 27        android:icon="@mipmap/ic_launcher"
-28        android:label="bookstore" >
+28        android:label="PHOENIX DREAM" >
 29        <activity
 30            android:name="com.example.bookstore.MainActivity"
 31            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

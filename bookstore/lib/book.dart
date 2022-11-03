@@ -1,4 +1,5 @@
 import 'package:bookstore/bookshelf.dart';
+import 'package:bookstore/main.dart';
 import 'package:bookstore/setting.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstore/showdetail.dart';
@@ -26,14 +27,21 @@ class _BookPageState extends State<BookPage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Books"),
+          title: const Text("PHOENIX DREAM"),
           actions: <Widget>[search(context)],
           bottom: const TabBar(tabs: [
             Tab(
               icon: Icon(Icons.book),
+              text: 'MyBooks',
             ),
-            Tab(icon: Icon(Icons.store)),
-            Tab(icon: Icon(Icons.settings)),
+            Tab(
+              icon: Icon(Icons.store),
+              text: 'Store',
+            ),
+            Tab(
+              icon: Icon(Icons.settings),
+              text: 'setting',
+            ),
           ]),
         ),
         body: TabBarView(

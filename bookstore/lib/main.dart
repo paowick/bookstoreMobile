@@ -12,7 +12,7 @@ import 'package:bookstore/book.dart';
 import 'package:bookstore/resetpass.dart';
 import 'package:bookstore/edituser.dart';
 
-final appName = 'Michael Hart project';
+final appName = 'PHOENIX DREAM';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         '/setting': (context) => settingPage(),
         '/edituser': (context) => EditUser(),
         '/searchpage': (context) => SearchPage(),
-        '/addaddress':(context) => addAddressPage(),
+        '/addaddress': (context) => addAddressPage(),
       },
     );
   }

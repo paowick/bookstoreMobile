@@ -95,16 +95,13 @@ class _bookShelfPageState extends State<bookShelfPage> {
                     width: 70,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Text(model['title'],
-                          style: TextStyle(
-                            fontSize: 15,
-                          )),
-                    )
-                  ],
+                Container(
+                  child: Text(model['title'],
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontSize: 15,
+                      )),
                 ),
               ],
             ),

@@ -1,4 +1,4 @@
-#Fri Nov 04 07:06:23 ICT 2022
+#Fri Nov 04 08:11:40 ICT 2022
 base.2=C\:\\miniproject\\bookstoreMobile\\bookstore\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes3.dex
 path.2=classes3.dex
 base.1=C\:\\miniproject\\bookstoreMobile\\bookstore\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes2.dex

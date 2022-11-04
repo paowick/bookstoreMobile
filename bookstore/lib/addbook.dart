@@ -20,7 +20,7 @@ class _AddBookPageState extends State<AddBookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add book'),
+        title: const Text('Add book',style: TextStyle(color: Colors.white)),
       ),
       body: Form(
         key: _form,

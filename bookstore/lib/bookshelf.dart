@@ -85,33 +85,28 @@ class _bookShelfPageState extends State<bookShelfPage> {
                         pdfViewPage(modellist.elementAt(index)),
                   ));
             },
-            child: Card(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Image.network(
-                          model['urlimage'],
-                          height: 100,
-                          fit: BoxFit.fill,
-                        ),
-                      )
-                    ],
+            child: Column(
+              children: [
+                Card(
+                  child: Image.network(
+                    model['urlimage'],
+                    height: 100,
+                    fit: BoxFit.fitHeight,
+                    width: 70,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Text(model['title'],
-                            style: TextStyle(
-                              fontSize: 18,
-                            )),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(model['title'],
+                          style: TextStyle(
+                            fontSize: 15,
+                          )),
+                    )
+                  ],
+                ),
+              ],
             ),
           );
         });

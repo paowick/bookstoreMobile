@@ -41,7 +41,6 @@ class _addAddressPageState extends State<addAddressPage> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: (payload) async {
 // when user tap on notification.
-
       print("onSelectNotification called.");
 
       setState(() {
@@ -56,10 +55,19 @@ class _addAddressPageState extends State<addAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('fill address'),
+          title: Text('fill address', style: TextStyle(color: Colors.white)),
         ),
         body: Column(
-          children: [address(), save()],
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: address(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: save(),
+            )
+          ],
         ));
   }
 
@@ -144,6 +152,15 @@ class _addAddressPageState extends State<addAddressPage> {
       docId = res.id;
     });
     return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(180, 40),
+        ),
         child: const Text('send infomation'),
         onPressed: () async {
           Map<String, dynamic> value = {

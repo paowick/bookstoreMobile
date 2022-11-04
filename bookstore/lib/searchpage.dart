@@ -34,29 +34,35 @@ class _SearchPageState extends State<SearchPage> {
                     var data = snapshot.data!.docs[index].data()
                         as Map<String, dynamic>;
                     if (ram.isEmpty) {
-                      return ListTile(
-                        onTap: () {
-                          indextemp = index;
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BookDetail(data['title']),
-                              ));
-                        },
-                        title: Text(data['title']),
+                      return Card(
+                        child: ListTile(
+                          onTap: () {
+                            indextemp = index;
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookDetail(data['title']),
+                                ));
+                          },
+                          title: Text(data['title']),
+                        ),
                       );
                     }
                     if (data['title'].toString().startsWith(ram)) {
-                      return ListTile(
-                        onTap: () {
-                          indextemp = index;
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BookDetail(data['title']),
-                              ));
-                        },
-                        title: Text(data['title']),
+                      return Card(
+                        child: ListTile(
+                          onTap: () {
+                            indextemp = index;
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      BookDetail(data['title']),
+                                ));
+                          },
+                          title: Text(data['title']),
+                        ),
                       );
                     }
                     return Container();

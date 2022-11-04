@@ -31,7 +31,8 @@ class _BookDetailState extends State<BookDetail> {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Detail Books"),
+              title: const Text("Detail Books",
+                  style: TextStyle(color: Colors.white)),
             ),
             body: snapshot.hasData
                 ? buildBook(snapshot.data!)
@@ -48,54 +49,76 @@ class _BookDetailState extends State<BookDetail> {
     }
     var model = data.docs.elementAt(indextemp!);
 
-    return Center(
-      child: Column(children: [
-        Row(
-          children: [
-            Expanded(
-              child: Image.network(
-                model['urlimage'],
-                height: 200,
-                width: 500,
-                fit: BoxFit.fitHeight,
-              ),
-            )
-          ],
-        ),
-        Row(
+    return ListView(children: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(model['title']),
+            Text(model['title'],
+                style: TextStyle(
+                    fontSize: 50,
+                    fontFamily: "Poppins-Bold",
+                    fontWeight: FontWeight.bold)),
           ],
         ),
-        Row(
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Card(
+            child: Image.network(
+              model['urlimage'],
+              fit: BoxFit.cover,
+              height: 180,
+              width: 120,
+            ),
+          )
+        ],
+      ),
+      SizedBox(height: 20),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(model['detail']),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.lightBlue,
+                  onPrimary: Colors.white,
+                  shadowColor: Colors.greenAccent,
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0)),
+                  minimumSize: Size(180, 40),
+                ),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => payMentPage(model['title']),
+                      ));
+                },
+                child: Text('Buy ${model['price'].toString()} Bath')),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('prise : ' + model['price'].toString() + '  Bath'),
-          ],
+      ),
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          child: Text(
+            model['detail'],
+            maxLines: 30,
+          ),
         ),
-        /*ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, "/addbook");
-            },
-            child: Text("aadd")),*/
-        ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => payMentPage(model['title']),
-                  ));
-            },
-            child: Text('Buy'))
-      ]),
-    );
+      ),
+
+      /*ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, "/addbook");
+          },
+          child: Text("aadd")),*/
+    ]);
   }
 
   Future<void> deleteValue(String titleName) async {

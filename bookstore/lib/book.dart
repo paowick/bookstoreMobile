@@ -27,9 +27,10 @@ class _BookPageState extends State<BookPage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("PHOENIX DREAM"),
+          title: const Text("PHOENIX DREAM",
+              style: TextStyle(color: Colors.white)),
           actions: <Widget>[search(context)],
-          bottom: const TabBar(tabs: [
+          bottom: const TabBar(unselectedLabelColor: Colors.white, tabs: [
             Tab(
               icon: Icon(Icons.book),
               text: 'MyBooks',
@@ -94,40 +95,31 @@ class _BookPageState extends State<BookPage> {
                     builder: (context) => BookDetail(model['title']),
                   ));
             },
-            child: Card(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Image.network(
-                          model['urlimage'],
-                          height: 200,
-                          fit: BoxFit.fill,
-                        ),
-                      )
-                    ],
+            child: Column(
+              children: [
+                Card(
+                  color: Colors.lightBlue.shade600,
+                  child: Image.network(
+                    model['urlimage'],
+                    fit: BoxFit.cover,
+                    height: 180,
+                    width: 120,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(model['title'],
-                          style: TextStyle(
-                            fontSize: 20,
-                          ))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("${model["price"].toString()} bath",
-                          style: TextStyle(
-                            fontSize: 10,
-                          ))
-                    ],
-                  )
-                ],
-              ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(model['title'], style: TextStyle(fontSize: 20))
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("${model["price"].toString()} bath",
+                        style: TextStyle(fontSize: 10))
+                  ],
+                )
+              ],
             ),
           );
         });

@@ -57,25 +57,37 @@ class _settingPageState extends State<settingPage> {
         return Container(
           child: Column(
             children: [
-              SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                    maxRadius: 80, backgroundImage: NetworkImage("$urlRam")),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  document["name"],
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  document["email"],
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                        maxRadius: 80,
+                        backgroundImage: NetworkImage("$urlRam")),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          document["name"],
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          document["email"],
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),

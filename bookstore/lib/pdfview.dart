@@ -18,7 +18,7 @@ class _pdfViewPageState extends State<pdfViewPage> {
     dynamic _id = widget._idi;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_id['title']),
+        title: Text(_id['title'],style: TextStyle(color: Colors.white)),
       ),
       body: Container(
         child: PDF().cachedFromUrl(_id['pdf'].toString()),

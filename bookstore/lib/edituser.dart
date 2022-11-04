@@ -28,14 +28,35 @@ class _EditUserState extends State<EditUser> {
   @override
   build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('EditProfile')),
+      appBar: AppBar(
+          title: Text('EditProfile', style: TextStyle(color: Colors.white))),
       body: ListView(
         children: [
-          imageUser(),
-          Name(),
-          gender(),
-          address(),
-          save(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: imageUser(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Name(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: gender(),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: address(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: save(),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -201,6 +222,15 @@ class _EditUserState extends State<EditUser> {
       docId = res.id;
     });
     return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          shadowColor: Colors.greenAccent,
+          elevation: 1,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0)),
+          minimumSize: Size(180, 40),
+        ),
         child: const Text('Save'),
         onPressed: () async {
           Map<String, dynamic> value = {

@@ -26,24 +26,75 @@ class _payMentPageState extends State<payMentPage> {
     String _id = widget._idi;
     return Scaffold(
       appBar: AppBar(
-        title: Text('payment'),
+        title: Text('payment', style: TextStyle(color: Colors.white)),
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                  image: NetworkImage(
-                      'https://firebasestorage.googleapis.com/v0/b/bookstore-56a05.appspot.com/o/bookimage%2FTotally_not_a_Rickroll_QR_code.png?alt=media&token=e7152467-5783-4ee4-8cf0-316b31183b69')),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              decoration: const InputDecoration(
+                label: Text(
+                  'Name on card',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TextFormField(
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                label: Text(
+                  'card number',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ),
           Row(
+            children: <Widget>[
+              SizedBox(
+                  width: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: 'MM/YY',
+                        label: Text(
+                          'Expriry date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  )),
+              SizedBox(
+                  width: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: 'CVE',
+                        label: Text(
+                          'security code',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  )),
+            ],
+          ),
+          SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [detailStream(_id)]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [bulidPayBotton(_id)],
+              children: [bulidPayBotton(_id)],
+            ),
           )
         ],
       ),
@@ -86,29 +137,56 @@ class _payMentPageState extends State<payMentPage> {
       return Row(
         children: [
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.lightBlue,
+                onPrimary: Colors.white,
+                shadowColor: Colors.greenAccent,
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0)),
+                minimumSize: Size(150, 40),
+              ),
               onPressed: (() {
                 Navigator.pushReplacementNamed(context, '/addaddress');
               }),
-              child: Text('book')),
+              child: Text('buy a book')),
           SizedBox(width: 50),
-          Text('Ebook in collection')
+          Text('E-book in collection')
         ],
       );
     } else {
       return Row(
         children: [
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.lightBlue,
+                onPrimary: Colors.white,
+                shadowColor: Colors.greenAccent,
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0)),
+                minimumSize: Size(150, 40),
+              ),
               onPressed: (() {
                 Navigator.pushReplacementNamed(context, '/addaddress');
               }),
-              child: Text('book')),
+              child: Text('buy a book')),
           SizedBox(width: 50),
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.lightBlue,
+                onPrimary: Colors.white,
+                shadowColor: Colors.greenAccent,
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0)),
+                minimumSize: Size(150, 40),
+              ),
               onPressed: (() {
                 list.add(databook.docs.first['title']);
                 update(list, datauser);
               }),
-              child: Text('EBook')),
+              child: Text('buy a E-Book')),
         ],
       );
     }
@@ -129,35 +207,4 @@ Future<void> update(dynamic dataString, QuerySnapshot data) async {
         .doc('$docId')
         .update(value);
   } catch (e) {}
-}
-
-Widget detailStream(String id) {
-  return StreamBuilder(
-    stream: FirebaseFirestore.instance
-        .collection("books")
-        .where("title", isEqualTo: id)
-        .snapshots(),
-    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      return Container(
-        child: snapshot.hasData
-            ? detail(snapshot.data!)
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
-      );
-    },
-  );
-}
-
-Widget detail(QuerySnapshot data) {
-  return Column(
-    children: data.docs.map((document) {
-      return Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(document["title"]), Text(document['detail'])],
-        ),
-      );
-    }).toList(),
-  );
 }

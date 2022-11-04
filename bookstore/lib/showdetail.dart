@@ -109,11 +109,11 @@ class _BookDetailState extends State<BookDetail> {
           ),
         ),
       ),
-      ElevatedButton(
+      /*ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, "/addbook");
           },
-          child: Text("aadd")),
+          child: Text("aadd")),*/
     ]);
   }
 

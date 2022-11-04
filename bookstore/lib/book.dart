@@ -106,13 +106,8 @@ class _BookPageState extends State<BookPage> {
                     width: 120,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(model['title'],
-                        maxLines: 1, style: TextStyle(fontSize: 20))
-                  ],
-                ),
+                Text(model['title'],
+                    maxLines: 1, style: TextStyle(fontSize: 20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

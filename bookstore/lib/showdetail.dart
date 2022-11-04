@@ -51,16 +51,14 @@ class _BookDetailState extends State<BookDetail> {
 
     return ListView(children: [
       Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(model['title'],
-                style: TextStyle(
-                    fontSize: 50,
-                    fontFamily: "Poppins-Bold",
-                    fontWeight: FontWeight.bold)),
-          ],
+        padding: const EdgeInsets.all(15.0),
+        child: Text(
+          model['title'],
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 50,
+              fontFamily: "Poppins-Bold",
+              fontWeight: FontWeight.bold),
         ),
       ),
       Row(
@@ -108,16 +106,14 @@ class _BookDetailState extends State<BookDetail> {
         child: Container(
           child: Text(
             model['detail'],
-            maxLines: 30,
           ),
         ),
       ),
-
-      /*ElevatedButton(
+      ElevatedButton(
           onPressed: () {
             Navigator.pushNamed(context, "/addbook");
           },
-          child: Text("aadd")),*/
+          child: Text("aadd")),
     ]);
   }
 
